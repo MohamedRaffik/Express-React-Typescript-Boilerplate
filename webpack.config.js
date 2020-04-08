@@ -11,13 +11,18 @@ module.exports = {
       {
         test: /\.ts(x?)$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: [/node_modules/, /tests/, /coverage/]
       }
     ]
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist', 'client')
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   plugins: [
     new HTMLWebpackPlugin({

@@ -1,15 +1,29 @@
 import React from 'react';
+import { Counter } from './components';
+import { State, addCounter, reset } from './store';
+import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
-  const [counter, updateCounter] = React.useState(0);
+  const dispatch = useDispatch();
+  const { length } = useSelector((state: State) => ({
+    length: state.counters.length
+  }));
+
+  const counters = [];
+
+  for (let i = 0; i < length; i++) {
+    counters.push((
+      <Counter key={`Counter${i}`} index={i} />
+    ));
+  }
 
   return (
     <div>
-      <h2>Counter: {counter}</h2>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <button onClick={() => updateCounter(counter + 1)}>+</button>
-        <button onClick={() => updateCounter(counter - 1)}>-</button>
+        <button onClick={() => dispatch(addCounter())}>Add Counter</button>
+        <button onClick={() => dispatch(reset())}>Reset</button>
       </div>
+      {counters}
     </div>
   );
 };

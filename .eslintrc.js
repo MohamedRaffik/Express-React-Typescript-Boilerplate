@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
     node: true,
+    jest: true
   },
   extends: [
     'plugin:react/recommended',
@@ -25,4 +26,17 @@ module.exports = {
     semi: [2, 'always'],
     quotes: [2, 'single']
   },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': [2, { args: 'none' }]
+      }
+    }
+  ]
 };
