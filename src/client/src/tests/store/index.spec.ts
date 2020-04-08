@@ -18,20 +18,27 @@ describe('Testing Redux Store', () => {
   });
 
   it('should add a counter', () => {
-    store.dispatch(addCounter());
+    store.dispatch(addCounter(false));
     const state = store.getState();
-    expect(state.counters[1].counter).toEqual(0);
+    expect(state.counters[1]).toEqual({ counter: 0, sync: false });
   });
 
   it('should remove a counter', () => {
-    store.dispatch(addCounter());
+    store.dispatch(addCounter(false));
     store.dispatch(removeCounter(1));
     const state = store.getState();
     expect(state.counters[1]).toEqual(undefined);
   });
 
+  it('should add a synced counter', () => {
+    store.dispatch(updateCounter(0, true));
+    store.dispatch(addCounter(true));
+    const state = store.getState();
+    expect(state.counters[1]).toEqual({ counter: 1, sync: true });
+  });
+
   it('should make a synced counter have the same value as the main counter', () => {
-    store.dispatch(addCounter());
+    store.dispatch(addCounter(false));
     store.dispatch(updateCounter(0, true));
     store.dispatch(toggleSync(1));
     const state = store.getState();
@@ -39,7 +46,7 @@ describe('Testing Redux Store', () => {
   });
 
   it('should cause the main counter to change when changing a synced counter', () => {
-    store.dispatch(addCounter());
+    store.dispatch(addCounter(false));
     store.dispatch(toggleSync(1));
     store.dispatch(updateCounter(1, true));
     const state = store.getState();
@@ -47,7 +54,7 @@ describe('Testing Redux Store', () => {
   });
 
   it('should desync a counter from the main counter', () => {
-    store.dispatch(addCounter());
+    store.dispatch(addCounter(false));
     store.dispatch(toggleSync(1));
     store.dispatch(updateCounter(1, true));
     store.dispatch(toggleSync(1));

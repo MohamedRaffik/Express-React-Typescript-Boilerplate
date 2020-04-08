@@ -3,7 +3,6 @@ import { createAction, createReducer, configureStore } from '@reduxjs/toolkit';
 const initialState = {
   counters: [
     {
-      title: 'Main Counter',
       counter: 0,
       sync: true
     }
@@ -12,7 +11,7 @@ const initialState = {
 
 const toggleSync = createAction('SYNC_COUNTER', (counter: number) => ({ payload: { counter } }));
 const updateCounter = createAction('UPDATE_COUNTER', (counter: number, increase: boolean) => ({ payload: { counter, increase } }));
-const addCounter = createAction('ADD_COUNTER');
+const addCounter = createAction('ADD_COUNTER', (sync: boolean) => ({ payload: { sync } }));
 const removeCounter = createAction('REMOVE_COUNTER', (counter: number) => ({ payload: { counter } }));
 const reset = createAction('RESET');
 
@@ -33,12 +32,10 @@ const reducer = createReducer(initialState, {
     state.counters[payload.counter].counter = state.counters[0].counter;
     return state;
   },
-  [addCounter.type]: state => {
-    const length = state.counters.length;
+  [addCounter.type]: (state, action: ReturnType<typeof addCounter>) => {
     state.counters.push({
-      title: `Counter ${length}`,
-      counter: 0,
-      sync: false
+      counter: action.payload.sync ? state.counters[0].counter : 0,
+      sync: action.payload.sync
     });
     return state;
   },
@@ -50,7 +47,6 @@ const reducer = createReducer(initialState, {
   [reset.type]: state => {
     state = {
       counters: [{
-        title: 'Main Counter',
         counter: 0,
         sync: true
       }]
