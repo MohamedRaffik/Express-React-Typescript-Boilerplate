@@ -5,16 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = (env, argv) => ({
   entry: path.join(__dirname, 'src', 'client', 'src', 'index.tsx'),
   resolve: {
-    extensions: [
-      '.ts',
-      '.tsx',
-      '.js',
-      '.jsx',
-      '.scss',
-      '.sass',
-      '.css',
-      '.d.ts'
-    ]
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.sass', '.css']
   },
   module: {
     rules: [

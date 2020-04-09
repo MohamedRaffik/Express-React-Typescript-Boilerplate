@@ -5,7 +5,7 @@ interface IfComponentProps {
   conditional: boolean;
 }
 
-const IfComponent = (props: IfComponentProps): JSX.Element => {
+const IfComponent = (props: IfComponentProps): JSX.Element | null => {
   const component = props.component ? (
     props.component
   ) : (
