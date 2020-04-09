@@ -2,8 +2,9 @@ import React from 'react';
 import { Counter } from './components';
 import { State, addCounter, reset } from './store';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from './App.module.scss';
 
-const App = () => {
+const App = (): JSX.Element => {
   const dispatch = useDispatch();
   const { length } = useSelector((state: State) => ({
     length: state.counters.length
@@ -12,9 +13,9 @@ const App = () => {
   const counters = [];
 
   for (let i = 1; i < length; i++) {
-    counters.push((
+    counters.push(
       <Counter title={`Counter ${i}`} key={`Counter${i}`} index={i} />
-    ));
+    );
   }
 
   const buttonStyle: React.CSSProperties = {
@@ -24,10 +25,16 @@ const App = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <button style={buttonStyle} onClick={() => dispatch(addCounter(false))}>Add Counter</button>
-        <button style={buttonStyle} onClick={() => dispatch(addCounter(true))}>Add Synced Counter</button>
-        <button style={buttonStyle} onClick={() => dispatch(reset())}>Reset</button>
+      <div className={styles['main-controls']}>
+        <button style={buttonStyle} onClick={() => dispatch(addCounter(false))}>
+          Add Counter
+        </button>
+        <button style={buttonStyle} onClick={() => dispatch(addCounter(true))}>
+          Add Synced Counter
+        </button>
+        <button style={buttonStyle} onClick={() => dispatch(reset())}>
+          Reset
+        </button>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Counter title={'Main Counter'} index={0} />

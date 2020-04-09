@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IfComponent } from '.';
 
 interface CounterProps {
-  index: number,
-  title: string,
+  index: number;
+  title: string;
 }
 
-const Counter = (props: CounterProps) => {
+const Counter = (props: CounterProps): JSX.Element => {
   const { index, title } = props;
   const dispatch = useDispatch();
   const { counter } = useSelector((state: State) => ({
@@ -25,14 +25,38 @@ const Counter = (props: CounterProps) => {
       <h3>{title}</h3>
       <p>Counter: {counter.counter}</p>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <button style={buttonStyle} onClick={() => dispatch(updateCounter(index, true))}>+</button>
-        <button style={buttonStyle} onClick={() => dispatch(updateCounter(index, false))}>-</button>
+        <button
+          style={buttonStyle}
+          onClick={() => dispatch(updateCounter(index, true))}
+        >
+          +
+        </button>
+        <button
+          style={buttonStyle}
+          onClick={() => dispatch(updateCounter(index, false))}
+        >
+          -
+        </button>
         <IfComponent
-          component={<button style={buttonStyle} onClick={() => dispatch(toggleSync(index))}>{counter.sync ? 'Desync' : 'Sync'}</button>}
+          component={
+            <button
+              style={buttonStyle}
+              onClick={() => dispatch(toggleSync(index))}
+            >
+              {counter.sync ? 'Desync' : 'Sync'}
+            </button>
+          }
           conditional={index !== 0}
         />
         <IfComponent
-          component={<button style={buttonStyle} onClick={() => dispatch(removeCounter(index))}>Remove</button>}
+          component={
+            <button
+              style={buttonStyle}
+              onClick={() => dispatch(removeCounter(index))}
+            >
+              Remove
+            </button>
+          }
           conditional={index !== 0}
         />
       </div>
