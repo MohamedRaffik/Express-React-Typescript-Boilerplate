@@ -1,4 +1,18 @@
+@import './partials.scss';
+
 .main-controls {
   display: flex;
   flex-direction: row;
+}
+
+.main-counter {
+  display: flex;
+  justify-content: center;
+}
+
+.child-counters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }

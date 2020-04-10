@@ -10,6 +10,18 @@ const App = (): JSX.Element => {
     length: state.counters.length
   }));
 
+  const addNewCounter = (): void => {
+    dispatch(addCounter(false));
+  };
+
+  const addNewSyncCounter = (): void => {
+    dispatch(addCounter(true));
+  };
+
+  const resetStore = (): void => {
+    dispatch(reset());
+  };
+
   const counters = [];
 
   for (let i = 1; i < length; i++) {
@@ -18,30 +30,23 @@ const App = (): JSX.Element => {
     );
   }
 
-  const buttonStyle: React.CSSProperties = {
-    margin: '0.5em',
-    padding: '0.3em 1em'
-  };
-
   return (
     <div>
       <div className={styles['main-controls']}>
-        <button style={buttonStyle} onClick={() => dispatch(addCounter(false))}>
+        <button className={styles['buttons']} onClick={addNewCounter}>
           Add Counter
         </button>
-        <button style={buttonStyle} onClick={() => dispatch(addCounter(true))}>
+        <button className={styles['buttons']} onClick={addNewSyncCounter}>
           Add Synced Counter
         </button>
-        <button style={buttonStyle} onClick={() => dispatch(reset())}>
+        <button className={styles['buttons']} onClick={resetStore}>
           Reset
         </button>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div className={styles['main-counter']}>
         <Counter title={'Main Counter'} index={0} />
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {counters}
-      </div>
+      <div className={styles['child-counters']}>{counters}</div>
     </div>
   );
 };

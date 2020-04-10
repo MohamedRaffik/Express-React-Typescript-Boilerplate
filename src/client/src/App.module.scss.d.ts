@@ -1,6 +1,9 @@
 declare namespace AppModuleScssModule {
   export interface IAppModuleScss {
+    buttons: string;
+    'child-counters': string;
     'main-controls': string;
+    'main-counter': string;
   }
 }
 
